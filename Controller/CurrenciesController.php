@@ -20,7 +20,7 @@ class CurrenciesController
         $currenciesModel = new CurrenciesModel(new Currency());
         $currencies      = $currenciesModel->getAll();
 
-        return compact("currencies");
+        return [$currencies];
     }
 
     /**
