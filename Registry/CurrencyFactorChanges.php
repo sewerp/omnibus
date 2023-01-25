@@ -29,8 +29,12 @@ class CurrencyFactorChanges extends BaseRegistryChanges
             //update price for item using proportion
             $previousPrice = $todayPriceRegistry->getPrice();
             $newPrice      = bcdiv(bcmul($previousPrice, $newFactor, 4), $previousFactor, 2);
-            $todayPriceRegistry->setPrice($newPrice);
 
+            if ($previousPrice <= $newPrice) {
+                continue;
+            }
+
+            $todayPriceRegistry->setPrice($newPrice);
             $this->priceChangesModel->save($todayPriceRegistry);
         }
 

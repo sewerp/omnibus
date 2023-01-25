@@ -27,8 +27,8 @@ class ItemPriceChanges extends BaseRegistryChanges
 
         //get today's entries for this item for all currencies
         $todaysPriceChanges = $this->priceChangesModel->getTodaysByItemId($itemBeingSaved->getId());
-        $currencies        = $this->currenciesModel->getAll();
-        $discountGroups    = $this->discountGroupsModel->getAll();
+        $currencies         = $this->currenciesModel->getAll();
+        $discountGroups     = $this->discountGroupsModel->getAll();
 
         foreach ($todaysPriceChanges as $todaysPriceChange) {
             $price = $this->itemPricesHelper->calculatePrice(
@@ -36,6 +36,10 @@ class ItemPriceChanges extends BaseRegistryChanges
                 $currencies[$todaysPriceChange->getCurrencyId()]->getFactor(),
                 $discountGroups[$todaysPriceChange->getDiscountGroupId()]->getDiscountPercent()
             );
+
+            if ($todaysPriceChange->getPrice() <= $price) {
+                continue;
+            }
 
             $todaysPriceChange->setPrice($price);
             $this->priceChangesModel->save($todaysPriceChange);
