@@ -21,4 +21,6 @@ class CurrenciesModel extends Model
 
         parent::update($entity);
     }
+
+    //TODO when adding a new currency it also needs to create PriceChanges registry entries
 }

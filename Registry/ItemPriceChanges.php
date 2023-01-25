@@ -26,19 +26,19 @@ class ItemPriceChanges extends BaseRegistryChanges
         }
 
         //get today's entries for this item for all currencies
-        $todayPriceChanges = $this->priceChangesModel->getTodaysByItemId($itemBeingSaved->getId());
+        $todaysPriceChanges = $this->priceChangesModel->getTodaysByItemId($itemBeingSaved->getId());
         $currencies        = $this->currenciesModel->getAll();
         $discountGroups    = $this->discountGroupsModel->getAll();
 
-        foreach ($todayPriceChanges as $todayPriceChange) {
+        foreach ($todaysPriceChanges as $todaysPriceChange) {
             $price = $this->itemPricesHelper->calculatePrice(
                 $itemBeingSaved->getPrice(),
-                $currencies[$todayPriceChange->getCurrencyId()]->getFactor(),
-                $discountGroups[$todayPriceChange->getDiscountGroupId()]->getDiscountPercent()
+                $currencies[$todaysPriceChange->getCurrencyId()]->getFactor(),
+                $discountGroups[$todaysPriceChange->getDiscountGroupId()]->getDiscountPercent()
             );
 
-            $todayPriceChange->setPrice($price);
-            $this->priceChangesModel->save($todayPriceChange);
+            $todaysPriceChange->setPrice($price);
+            $this->priceChangesModel->save($todaysPriceChange);
         }
     }
 }

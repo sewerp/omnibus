@@ -22,4 +22,6 @@ class ItemsModel extends Model
 
         parent::update($entity);
     }
+
+    //TODO when adding an item it also needs to create PriceChanges registry entries
 }
