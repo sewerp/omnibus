@@ -26,7 +26,7 @@ class ItemPriceChanges extends BaseRegistryChanges
         }
 
         //get today's entries for this item for all currencies
-        $todayPriceChanges = $this->priceChangesModel->getByItemIdForToday($itemBeingSaved->getId());
+        $todayPriceChanges = $this->priceChangesModel->getTodaysByItemId($itemBeingSaved->getId());
         $currencies        = $this->currenciesModel->getAll();
         $discountGroups    = $this->discountGroupsModel->getAll();
 

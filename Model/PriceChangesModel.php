@@ -11,7 +11,7 @@ class PriceChangesModel extends Model
      * @param $createdAt
      * @return \Entity\Entity|null
      */
-    public function getByItemIdForToday(int $itemId)
+    public function getTodaysByItemId(int $itemId)
     {
         $sql       = "SELECT * FROM " . static::TABLE_NAME . " WHERE itemId = :itemId AND createdAt = :createdAt";
         $statement = $this->connection->prepare($sql);
